@@ -1,0 +1,36 @@
+
+def path_exists(graph, start, target):
+    if start == target:
+        return True
+
+    visited = set()
+    stack = [start]
+
+    while stack:
+        node = stack.pop()
+
+        if node == target:
+            return True
+
+        if node not in visited:
+            visited.add(node)
+
+            for neighbour in graph.get(node, []):
+                if neighbour not in visited:
+                    stack.append(neighbour)
+
+    return False
+graph = {
+    "A": ["B", "C"],
+    "B": ["D"],
+    "C": ["E"],
+    "D": [],
+    "E": ["F"],
+    "F": []
+}
+
+print(path_exists(graph, "A", "F"))
+print(path_exists(graph, "D", "A"))
+print(path_exists(graph, "A", "D"))
+print(path_exists(graph, "B", "F"))
+print(path_exists(graph, "C", "C"))
